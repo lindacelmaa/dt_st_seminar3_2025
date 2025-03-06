@@ -57,4 +57,40 @@ public class MyHeap <Ttype>{
 		System.gc();
 			
 	}
+	
+	public void enqueue(Ttype element) {
+		if(isFull()) {
+			resize();
+		}
+		heap[counter] = element;
+		counter++;
+		
+		//reheap
+		
+		
+	}
+	
+	private void reheapUp(int index) {
+		//kreisais b'erna index = vecaka index *2 +1
+		//labaa berna index = veaka index*2 + 2
+		
+		
+		int parentIndex = (int) (index - 1)/2; //maaksligi labajam bernam nogriez 0.5
+		if(index >= 0) {
+			if(((Comparable)heap[index]).compareTo(heap[parentIndex]) == 1){
+				swap(index, parentIndex);
+				reheapUp(parentIndex);
+			}
+		}
+		
+		
+		
+	}
+
+	private void swap(int index, int parentIndex) {
+		Ttype temp = heap[index];
+		heap[index] = heap[parentIndex];
+		heap[parentIndex] = temp;
+		
+	}
 }
