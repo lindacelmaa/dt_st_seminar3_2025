@@ -66,8 +66,7 @@ public class MyHeap <Ttype>{
 		counter++;
 		
 		//reheap
-		heap[counter] = element;
-		counter++;
+		
 		reheapUp(counter-1);
 		
 	}
@@ -94,7 +93,7 @@ public class MyHeap <Ttype>{
 		
 	}
 	
-	private Ttype dequeue(Ttype element) throws Exception{
+	public Ttype dequeue() throws Exception{
 		if(isEmpty()) {
 			throw new Exception("Cannot dequeue, heap is empty");
 		}
@@ -131,12 +130,32 @@ public class MyHeap <Ttype>{
 				}
 			}
 		
-		
-		
-		
 	}
 	
+	public void print() throws Exception{
+		if(isEmpty()) {
+			throw new Exception("Heap is empty");
+		}
+		printHelp(0);
+	}
+	private void printHelp(int currentParentIndex) {
+		System.out.println("P -> "+ heap[currentParentIndex]);
+		if (currentParentIndex *2 + 1 < counter) {
+			System.out.println("Left child -> " + heap[currentParentIndex * 2+1]);
+			printHelp(currentParentIndex * 2+1);
+		}
+		if(currentParentIndex *2 + 2 < counter) {
+			System.out.println("Right child -> " + heap[currentParentIndex * 2+2]);
+			printHelp(currentParentIndex * 2+2);
+		}
+	}
 	
+	public void makeEmpty() {
+		counter = 0;
+		size = DEFAULT_SIZE;
+		heap = (Ttype[]) new Object[size];
+		System.gc();
+	}
 	
 	
 }
