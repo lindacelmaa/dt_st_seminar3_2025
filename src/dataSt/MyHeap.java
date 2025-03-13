@@ -66,7 +66,9 @@ public class MyHeap <Ttype>{
 		counter++;
 		
 		//reheap
-		
+		heap[counter] = element;
+		counter++;
+		reheapUp(counter-1);
 		
 	}
 	
@@ -83,8 +85,6 @@ public class MyHeap <Ttype>{
 			}
 		}
 		
-		
-		
 	}
 
 	private void swap(int index, int parentIndex) {
@@ -93,4 +93,50 @@ public class MyHeap <Ttype>{
 		heap[parentIndex] = temp;
 		
 	}
+	
+	private Ttype dequeue(Ttype element) throws Exception{
+		if(isEmpty()) {
+			throw new Exception("Cannot dequeue, heap is empty");
+		}
+		
+		Ttype temp = heap[0];
+		heap[0] = heap[counter-1];
+		counter--;
+		reheapDown(0);
+		return temp;
+	}
+	
+	private void reheapDown(int currentIndex) {
+		int leftChildIndex = currentIndex *2 + 1;
+		int rightChildIndex = currentIndex *2 + 2;
+		
+		if(leftChildIndex < counter && rightChildIndex < counter) {
+				if(((Comparable)heap[leftChildIndex]).compareTo(heap[rightChildIndex]) == 1) {
+				}
+				if(((Comparable)heap[rightChildIndex]).compareTo(heap[currentIndex]) == 1) {
+					swap(rightChildIndex, currentIndex);
+					reheapDown(leftChildIndex);
+				}
+					
+				else {
+				if(((Comparable)heap[rightChildIndex]).compareTo(heap[currentIndex]) == 1) {
+					swap(rightChildIndex, currentIndex);
+					reheapDown(rightChildIndex);
+				}
+			
+			}
+		} else if(leftChildIndex < counter && rightChildIndex >= counter) {
+				if(((Comparable)heap[leftChildIndex]).compareTo(heap[currentIndex]) == 1) {
+					swap(leftChildIndex, currentIndex);
+				}
+			}
+		
+		
+		
+		
+	}
+	
+	
+	
+	
 }
